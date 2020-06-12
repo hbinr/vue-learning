@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 开发环境版本，包含了有帮助的命令行警告 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 不仅可以把数据绑定到 DOM 文本或 attribute，还可以绑定到 DOM 结构 -->
+    <!-- v-if 指令将根据表达式 seen 的值的真假来插入/移除 <p> 元素。 -->
+    <div id="app">
+        <p v-if="seen">是否显示</p>
+    </div>
+
+    <!-- v-for 指令可以绑定数组的数据来渲染一个项目列表 -->
+    <div id="app-2">
+        <p v-for="data in dataArr">
+            {{data.text}}
+        </p>
+    </div>
+
+</body>
+
+</html>
+<script>
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            seen: true
+        }
+    })
+
+    var vm2 = new Vue({
+        el: '#app-2',
+        data: {
+            dataArr: [
+                { text: "text1" },
+                { text: "text2" },
+                { text: "text3" }
+            ]
+        }
+
+    })
+</script>

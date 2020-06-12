@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <title>Document</title>
+</head>
+<body>
+    <!-- 双大括号会将数据解释为普通文本，而非 HTML 代码。为了输出真正的 HTML，你需要使用 v-html 指令 -->
+    <div id="app">
+        <p v-html="rowHtml"></p>
+    </div>
+    <!--
+        注意：
+        你的站点上动态渲染的任意 HTML 可能会非常危险，因为它很容易导致 XSS 攻击。
+        请只对可信内容使用 HTML 插值，绝不要对用户提供的内容使用插值。 
+    -->
+</body>
+</html>
+
+<script>
+    var str = "<b>原始 html 渲染</b>"
+    var vm = new Vue({
+        el:'#app',
+        data:{
+            rowHtml:str
+        }
+    })
+
+</script>

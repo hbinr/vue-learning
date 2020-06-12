@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <!-- 处理用户输入 -->
+    <!-- 为了让用户和你的应用进行交互，我们可以用 v-on 指令添加一个事件监听器，通过它调用在 Vue 实例中定义的方法 -->
+    <div id="app">
+        <p>{{message}}</p>
+        <button v-on:click="reversMessage">反转消息</button>
+    </div>
+
+    <!-- v-model 指令，它能轻松实现表单输入和应用状态之间的双向绑定。 -->
+    <div id="app-2">
+        <p>{{model_data}}</p>
+        <input type="text" v-model="model_data">
+    </div>
+</body>
+</html>
+<script>
+    var vm1 = new Vue({
+        el:'#app',
+        data:{
+            message: "Golang vue"
+        },
+        methods: {
+            reversMessage:function(){
+                this.message = this.message.split('').reverse().join('')
+            }
+        },
+    })
+
+    var vm2 = new Vue({
+        el:'#app-2',
+        data:{
+            model_data:"Hello vue!"
+        }
+    })
+
+</script>

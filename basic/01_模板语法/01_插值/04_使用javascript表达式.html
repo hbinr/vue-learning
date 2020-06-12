@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <!-- 加减乘除 -->
+        <p>{{number + 100}}</p>
+
+        <!-- 三元表达式 -->
+        <p>{{ok ?"Yes":"No"}}</p>
+
+        <!-- 字符串处理 -->
+        <p>{{message.split('').reverse().join('')}}</p>
+        
+        <!-- 字符串处理2 -->
+        <b v-bind:id="'list'+ id"></b>
+    </div>
+
+    <!-- 
+        注意：
+        模板表达式都被放在沙盒中，只能访问全局变量的一个白名单，如 Math 和 Date 。
+        你不应该在模板表达式中试图访问用户定义的全局变量。 
+    -->
+
+</body>
+</html>
+
+<script>
+    
+    var vm = new Vue({
+        el:'#app',
+        data:{
+            id:"one",
+            number:100,
+            ok:true,
+            message:"hello",
+        }
+    })
+
+</script>

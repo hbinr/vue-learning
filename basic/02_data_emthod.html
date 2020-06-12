@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 开发环境版本，包含了有帮助的命令行警告 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 数据 -->
+    <div id="app">
+        <p>{{a}}</p>
+        <p>{{b}}</p>
+        <!-- <p>{{c}}</p> -->
+    </div>
+
+</body>
+
+</html>
+
+
+<script>
+    var myData = { a: "This is a ", b: "this is b" }
+    var vm = new Vue({
+        el: '#app',
+        // 绑定 myData
+        data: myData
+    })
+    // 可以通过 Vue 对象来访问定义的变量
+    vm.a = "change a "
+    vm.b = "change b "
+
+    // 使用 $ 来区分用户自定义变量，用于表示VUE 内置的变量和方法
+    console.log(vm.$data === myData)// true
+    console.log(vm.$el === document.getElementById('app'))  // true
+    // watch 方法用监控某个变量前后的变化
+    vm.$watch('a', function (oldVal, newVal) {
+        console.assert("变化前 " + a + " -------变化后 " + a)
+    })
+
+    // 如果又想追加一个c 属性，直接追加，vue 实例是读取不到的。因为即没有在 script里定义，也没有在html的{{}} 中定义
+    vm.c = "new add c"
+
+
+    // 如果你知道你会在晚些时候需要一个 property，但是一开始它为空或不存在，那么你仅需要设置一些初始值。
+    // 如下，这些属性都可以实现定义好，然后在使用
+    var data =  {
+        newTodoText: '',
+        visitCount: 0,
+        hideCompletedTodos: false,
+        todos: [],
+        error: null,
+    }
+
+</script>
