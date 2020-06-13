@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--引入 vue  -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <!--引入 axios  -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <title>axios</title>
+</head>
+<body>
+    <!-- 
+        Axios 是一个基于 promise 的 HTTP 库，可以用在浏览器和 node.js 中。
+
+        特性：
+            从浏览器中创建 XMLHttpRequests
+            从 node.js 创建 http 请求
+            支持 Promise API
+            拦截请求和响应
+            转换请求数据和响应数据
+            取消请求
+            自动转换 JSON 数据
+            客户端支持防御 XSRF 
+
+        本次案例是在VScode中运行，需要安装Live Server插件，
+        并右键当前html，选择Open with Live Server，
+        使用结束，记得关闭服务，右键选择Stop Live Server
+    -->
+    <div id="app">
+        {{myData}}
+    </div>
+</body>
+</html>
+
+<script>
+    var vm = new Vue({
+        el:"#app",
+        data:{
+            myData:""
+        },
+        // 钩子函数，会自动去调用
+        mounted(){
+            // 第一种写法，常规写法
+            axios.get("./data.json")
+            .then(function(response){
+                console.log(response.data)
+                // this.myData = response.data // 不修改值先
+            }),
+
+            // 第二种写法，箭头函数，比较便捷,(response)中的括号可以去掉，但是推荐写上
+            axios.get("./data.json")
+            .then((response)=>{
+                console.log(response.data)
+                this.myData = response.data  
+            })
+        }
+    })
+</script>

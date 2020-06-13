@@ -10,7 +10,11 @@
 <body>
     <!-- 双大括号会将数据解释为普通文本，而非 HTML 代码。为了输出真正的 HTML，你需要使用 v-html 指令 -->
     <div id="app">
-        <p v-html="rowHtml"></p>
+        <p v-html="rowHtml">
+            <b>
+                rowHtml会显示在该p标签下，会覆盖掉原有的便签内容
+            </b>
+        </p>
     </div>
     <!--
         注意：

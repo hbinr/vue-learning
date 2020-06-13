@@ -11,12 +11,20 @@
 </head>
 
 <body>
-    <!-- {{ }} 语法不能作用在 HTML attribute 上，遇到这种情况应该使用 v-bind 指令 -->
-    <!-- 将这个元素节点的 title attribute 和 Vue 实例的 message property 保持一致 -->
+    <!-- {{ }} 语法不能作用在 HTML attribute 上，遇到这种情况应该使用 v-bind 指令 
+         将这个元素节点的 title attribute 和 Vue 实例的 message property 保持一致 
+         注意：
+            v-bind 指令是单项数据绑定：只在绑定的dom作用域生效，其他调用处不会同步数据的变化
+            v-model是双向数据绑定
+    -->
+    
     <div id="app">
         <span v-bind:title="message2">
             鼠标悬停几秒钟查看此处动态绑定的提示信息！
         </span>
+        <br>
+        <!-- v-bind 单项数据绑定，如果在页面修改input框的内容，即value值，上面span不会同步数据 -->
+        <input type="text" style="width: 300px;" v-bind:value="message2">
 
 
         <!-- 但是对于布尔 attribute (它们只要存在就意味着值为 true)，v-bind 工作起来略有不同，

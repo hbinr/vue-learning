@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 开发环境版本，包含了有帮助的命令行警告 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>v-show/v-if</title>
+</head>
+
+<body>
+    <!-- 
+        二者不同点：
+            1).v-if 是真正的条件渲染，也是惰性的。如果初始渲染时条件为假，则什么都不做；
+            直到第一次变为真，才真正渲染。
+            2).v-show 是”假“渲染，无论true或者false，元素内容已经渲染到页面，只是基于CSS的切换。
+            即style="display: none;"
+
+            3).v-if有更高的切换开销，如果运行时切条件才改变，则推荐选择v-if。
+            4).v-show有更高的初识渲染开销，如果频繁的切换CSS，频繁改变条件，则推荐选择v-show。
+    -->
+
+    <div id="app">
+        <!-- v-if 指令，为true时渲染页面，否则不渲染-->
+        <p v-if="isSeen">是否显示</p>
+        <br>
+        <!-- v-show 指令，页面已经渲染。为true展示页面，否则不展示-->
+        <p v-show="isSeen">是否显示</p>
+        <br>
+        <input type="button" value="改变显示条件" v-on:click="changeMe">
+    </div>
+</body>
+
+</html>
+<script>
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            isSeen: true
+        },
+        methods:{
+            changeMe:function(){
+                this.isSeen = !this.isSeen
+            }
+        }
+    })
+
+
+</script>

@@ -10,7 +10,8 @@
 <body>
     <!-- 
         计算属性是基于它们的响应式依赖进行缓存的。只在相关响应式依赖发生改变时它们才会重新求值。
-        这就意味着只要 message 还没有发生改变，多次访问 reversedMessage 计算属性会立即返回之前的计算结果，而不必再次执行函数
+        这就意味着只要 message 还没有发生改变，多次访问 reversedMessage 计算属性会立即返回之前的计算结果，
+        而不必再次执行函数
 
         函数则不同，每当触发重新渲染时，调用方法将总会再次执行函数。
 
@@ -18,5 +19,42 @@
         然后我们可能有其他的计算属性依赖于 A。 --（关键点，需要依赖）
         如果没有缓存，我们将不可避免的多次执行 A 的 getter！如果你不希望有缓存，请用方法来替代。
      -->
+
+     <div id="app">
+         {{message}}
+         <br>
+         时间：myMethod: {{myMethod()}}
+        <br>
+         时间：myComputed: {{myComputed}}
+     </div>
+
 </body>
 </html>
+<script>
+    var vm = new Vue({
+        el:"#app",
+        data:{
+            message:"Hello Vue"
+        },
+        // 方法
+        methods:{
+            myMethod:function(){
+                return Date.now()
+            }
+        },
+        // 计算属性
+        computed:{
+            /*
+                1.Vue特有的计算属性，结果保存在内存中，重复调用结果不变，已经缓存了
+                2.调用时不需要加 '()'，是computed是调用属性
+                3.该方法的名称不能与 methods中方法重名
+            */
+            myComputed:function(){
+                this.message        // 只有相关响应式依赖发生改变时它们才会重新求值。
+                                    // 注意,message为myComputed方法的一部分，所有二者有依赖关系
+                return Date.now()   // 只计算一次，然后结果加入内存
+            }
+        }
+    })
+
+</script>

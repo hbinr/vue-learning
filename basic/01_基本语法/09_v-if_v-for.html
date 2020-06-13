@@ -11,16 +11,22 @@
 
 <body>
     <!-- 不仅可以把数据绑定到 DOM 文本或 attribute，还可以绑定到 DOM 结构 -->
-    <!-- v-if 指令将根据表达式 seen 的值的真假来插入/移除 <p> 元素。 -->
     <div id="app">
-        <p v-if="seen">是否显示</p>
-    </div>
-
-    <!-- v-for 指令可以绑定数组的数据来渲染一个项目列表 -->
-    <div id="app-2">
-        <p v-for="data in dataArr">
+        <!-- v-if 指令将根据表达式 size === 'L' 的值的真假来插入/移除 <h3> 元素。 -->
+        <h3 v-if="size === 'L'">L</h3>
+        <h3 v-else-if="size === 'XL'">XL</h3>
+        <h3 v-else-if="size === 'XXL'">XXL</h3>
+        <h3 v-else="size === 'XXXL'">XXXL</h3>
+        <br>
+        
+        <!-- v-for 指令可以绑定数组的数据来渲染一个列表 -->
+        <li v-for="data in arr1">
             {{data.text}}
-        </p>
+        </li>
+        <br>
+        <li v-for="(item,i) in arr2">
+            值为：{{item}},索引：{{i}}
+        </li>
     </div>
 
 </body>
@@ -30,19 +36,16 @@
     var vm = new Vue({
         el: '#app',
         data: {
-            seen: true
-        }
-    })
-
-    var vm2 = new Vue({
-        el: '#app-2',
-        data: {
-            dataArr: [
+            size:"L",
+            arr1: [
                 { text: "text1" },
                 { text: "text2" },
                 { text: "text3" }
+            ],
+            arr2:[
+                1,2,"Three"
             ]
         }
-
     })
+
 </script>

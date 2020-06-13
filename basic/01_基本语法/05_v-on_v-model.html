@@ -7,8 +7,7 @@
     <title>Document</title>
 </head>
 <body>
-    <!-- 处理用户输入 -->
-    <!-- 为了让用户和你的应用进行交互，我们可以用 v-on 指令添加一个事件监听器，通过它调用在 Vue 实例中定义的方法 -->
+    <!-- v-on 指令 监听dom事件，并在触发时运行js代码，通过它可以调用在 Vue 实例中定义的方法 -->
     <div id="app">
         <p>{{message}}</p>
         <button v-on:click="reversMessage">反转消息</button>
