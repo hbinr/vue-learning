@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--引入 vue  -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>动态组件</title>
+</head>
+<body>
+    <!-- 
+        动态组件主要用到了Vue内置的组件—— component
+        使用：
+            <component :is="who">
+
+            </component>
+        注意： component 和 :is 是内置的语法
+     -->
+    <div id="app">
+        <!-- 如果需要保持home组件的input状态，需要keep-alive包裹 -->
+        <keep-alive>
+            <component :is="who"></component> 
+            <!-- 注意这里的切换组件，是直接删掉和创建 -->
+        </keep-alive>
+        <ul>
+            <li><a @click="who='home'">首页</a></li>
+            <li><a @click="who='news'">新闻</a></li>
+            <li><a @click="who='blog'">博客</a></li>
+        </ul>
+    </div>    
+</body>
+</html>
+
+<script>
+ 
+    var vm = new Vue({
+        el:"#app",
+        data:{
+            who:"home"   // 默认首页
+        },
+        components:{
+            'home':{
+                template:
+                    `<div>
+                        home
+                        <input type="text">
+                    </div>`
+            },
+            'news':{
+                template:`<div>news</div>`
+
+            },
+            'blog':{
+                template:`<div>blog</div>`
+            }
+        }
+    });
+</script>

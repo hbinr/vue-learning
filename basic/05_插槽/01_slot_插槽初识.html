@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--引入 vue  -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>插槽slot</title>
+</head>
+<body>
+    <!-- 
+        slot 插槽
+
+        顾名思义，就是将内容插入到<slot>标签中
+     -->
+    <div id="app">
+        <component_a>
+            <div>【我正插在slot插槽里 ^_^】</div>
+        </component_a>
+
+        <component_b>
+            <li v-for="data in datalist">
+                {{ data }}
+            </li>
+        </component_b>
+    </div>    
+</body>
+</html>
+
+<script>
+  Vue.component
+        (
+            "component_a",
+            {
+                template:`
+                    <div>
+                        <slot></slot>
+                        【我上面的内容是插槽内容 0_0】
+                    </div>`
+            }
+        );
+        Vue.component
+        (
+            "component_b",
+            {
+                template:`
+                    <div>
+                        <ul>
+                            <slot></slot>
+                        </ul>
+                    </div>`
+            }
+        );
+
+        var vm = new Vue // 这里new实例后，就自动创建root组件（根组件）
+        (
+            {
+                el: '#app', 
+                data:
+                {
+                    datalist:['123', '456', '789',]
+                },
+            }
+        )
+</script>

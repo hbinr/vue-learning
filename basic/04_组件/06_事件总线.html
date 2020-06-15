@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--引入 vue  -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>ref</title>
+</head>
+<body>
+    <!-- 
+        当组件多了之后，会很复杂，分不清具体是那层的哪个组件，这时可以通过中央时间总线来进行组件通信
+
+        主要有两个方法：
+            1.$emit:发送数据
+            2.$on:接收数据或者说负责监听发送方emit
+     -->
+
+    <div id="app">
+        <bbar></bbar>
+        <cbar></cbar>
+    </div>    
+</body>
+</html>
+
+<script>
+    var bus = new Vue();  // 空vue实例，即中央事件总线
+
+    Vue.component('bbar',{
+        template:`
+        <div>
+            【bbar组件 希望发送给cbar】
+            <input type="text" ref='b_text' />
+            <button @click='send()'>点这发送cbar</button>
+        </div>
+        `,
+        methods:{
+            send(){
+                 bus.$emit('message',this.$refs.b_text.value)
+            }
+        }
+
+    });
+    
+    Vue.component('cbar', {// 这个负责监听
+        template: `
+                <div>
+                    【我是cbar】
+                </div>`,
+        // 当前组件DOM创建后的钩子函数
+        mounted() {  
+            bus.$on('message',(data)=>{console.log('已收到bbar的消息',data);});  // data 回调函数
+        },            
+    });
+        
+    var vm = new Vue({
+        el:"#app",
+        data:{
+        },
+    });
+</script>

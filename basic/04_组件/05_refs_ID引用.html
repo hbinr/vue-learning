@@ -23,11 +23,24 @@
      -->
 
     <div id="app">
-        <input type="text" ref="">
+        <input type="text" ref="input_ref">
+        <button @click="showRef" >点我在下方显示输入框内容</button>
+        <br>
+        {{showRefValue}}
     </div>    
 </body>
 </html>
 
 <script>
- 
+    var vm = new Vue({
+        el:"#app",
+        data:{
+            showRefValue:""
+        },
+        methods:{
+            showRef(){
+                this.showRefValue = this.$refs.input_ref.value
+            }
+        }
+    });
 </script>
