@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 开发环境版本，包含了有帮助的命令行警告 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>v-cloak</title>
+
+    <!-- 设置 v-cloak 的display效果为none-->
+    <style>
+        [v-cloak]：{
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 
+        解决使用插值表达式 {{}} 在使用时，页面刷新，插值表达式闪烁的问题。
+        因为页面渲染需要一定的时间，在彻底渲染完之前，插值表达式可能会出现在页面上
+
+        解决：
+            第一步：最外层div增加v-cloak指令(不需要赋值)；
+            当然单独给某个标签设置该指令也行，但是如果使用插值表达式较多，直接给最外层设置v-cloak即可
+            第二步：在style样式中增加对应 属性选择器并设置
+     -->
+    <div id="app"  v-cloak>  
+        <p>{{message}}</p>
+    </div>
+</body>
+</html>
+
+<script>
+    var vm = new Vue({
+        el: '#app',
+        data:{
+            message:"test"
+        }
+    });
+</script>

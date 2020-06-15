@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--引入 vue  -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>插槽slot</title>
+</head>
+<body>
+    <!-- 
+        牢记一条规则：
+            父级模板里的所有内容都是在父级作用域中编译的；子模板里的所有内容都是在子作用域中编译的。
+
+     -->
+    <div id="app">
+        <!-- 
+            该插槽跟模板的其它地方一样可以访问相同的实例 property (也就是相同的“作用域”)，
+            而不能访问 <component_a> 的作用域。例如 post-url 是访问不到的：
+         -->
+        <component_a post-url="/test">
+            <div>【我正插在slot插槽里 ^_^】  {{name}}</div>
+        </component_a>
+        <br>
+
+        <!--
+            报错内容：[Vue warn]: Property or method "post" is not defined ......
+            这里的 `post-url` 会是 undefined，因为其 (指该插槽的) 内容是
+            传递给 component_a 的，而不是在 component_a 组件*内部*定义的。
+        -->
+        <component_a post-url="/test">
+            <div>【我正插在slot插槽里 ^_^】  {{post-ur}}</div>
+        </component_a>
+
+    </div>    
+</body>
+</html>
+
+<script>
+    Vue.component("component_a",{
+        props:['post-url'],
+        template:`
+            <div>
+                <slot></slot>
+                【我上面的内容是插槽内容 0_0】
+            </div>`
+    });
+       
+    var vm = new Vue({
+        el: '#app', 
+        data:{
+            name:"test"
+        },
+    })
+</script>

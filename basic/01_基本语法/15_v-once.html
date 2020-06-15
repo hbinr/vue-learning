@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 开发环境版本，包含了有帮助的命令行警告 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>v-once</title>
+</head>
+
+<body>
+    <!-- 
+        v-once解决的问题:
+            只渲染元素和组件一次，随后的渲染，使用了此指令的元素/组件及其所有的子节点，
+            都会当作静态内容并跳过，这可以用于优化更新性能。
+
+        注意：
+            1.当添加v-once的指令所对应的元素, 其数据发生改变时,并不会再一次进行渲染
+            2.该指令和v-cloak一样，不需要赋值
+        场景：
+            当标签只需要被渲染一次可以使用该指令。
+     -->
+    <div id="app">  
+        <p v-once>{{message}}</p>
+        <input type="text" v-model="message">    
+    </div>
+</body>
+</html>
+
+<script>
+    var vm = new Vue({
+        el: '#app',
+        data:{
+            message:"test"
+        }
+    });
+</script>
