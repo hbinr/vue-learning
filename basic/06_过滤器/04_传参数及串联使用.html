@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--引入 vue  -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>过滤器</title>
+</head>
+
+<body>
+    <!--
+        1.传参数，除了默认参数v，还可以传自定义参数
+        2.串联使用  {{被处理的数组 | 过滤器A | 过滤器B}}
+     -->
+
+    <div id="app">
+        原文字：{{msg}}
+        <br>
+        处理后：{{msg | toD | addYuan('元')}}
+    </div>
+</body>
+
+</html>
+
+<script>
+    Vue.filter('toD', (v) => {
+        return '￥' + v
+    })
+    Vue.filter('addYuan', (v, arg) => {
+        return v + arg
+    })
+    new Vue({
+        el: '#app',
+        data: {
+            msg: 100
+        },
+    })
+
+</script>

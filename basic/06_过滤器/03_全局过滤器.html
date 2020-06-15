@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--引入 vue  -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>过滤器</title>
+</head>
+
+<body>
+    <!--
+        全局过滤器练习 
+     -->
+
+    <div id="app">
+        原文字：{{msg}}
+        <br>
+        处理后：{{msg | toUpper}}
+    </div>
+    <hr>
+
+    <div id="app2">
+        原文字：{{str}}
+        <br>
+        处理后：{{str | toUpper}}
+    </div>
+</body>
+
+</html>
+
+<script>
+    Vue.filter('toUpper',(v)=>{
+        // 格式化为首字母大写
+        return v.charAt(0).toUpperCase() + v.substr(1).toLowerCase()
+    })
+    new Vue({
+        el: '#app',
+        data: {
+            msg:"test"
+        },
+    })
+
+    new Vue({
+        el: '#app2',
+        data: {
+            str:"string"
+        },
+    })
+</script>

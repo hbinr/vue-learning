@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--引入 vue  -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>过滤器</title>
+</head>
+<body>
+    <!-- 
+        局部过滤器练习:
+
+        在vm对象的选项中配置过滤器
+        局部注册的过滤器只适用于当前vm对象
+     -->
+
+     <div id="app">
+        原文字：{{msg}}
+        <br>
+        处理后：{{msg | toUpper}}
+    </div>
+    
+</body>
+</html>
+<script>
+    var vm = new Vue({
+        el: '#app', 
+        data:{
+            msg:"test"
+        },
+        // 1. 设置vm的过滤器filters选项
+        filters:{
+            // 2. 过滤器名即函数名
+            toUpper(v){
+                // 在过滤器的方法中全转大写并返回结果
+                return v.toUpperCase()  
+            }
+        }
+    })
+</script>
+
+

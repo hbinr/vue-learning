@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--引入 vue  -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>过滤器</title>
+</head>
+
+<body>
+    <!--
+     -->
+
+    <div id="app">
+        处理前：{{today}}
+        <br>
+        处理后：{{today | fmtDate}}
+    </div>
+</body>
+
+</html>
+
+<script src="./moment.js"></script>
+<script>
+    Vue.filter('fmtDate', (v) => {
+        return moment(v).format('YYYY-MM-DD hh:mm:ss')
+    })
+    new Vue({
+        el: '#app',
+        data: {
+            today:Date.now()
+        },
+    })
+
+</script>
