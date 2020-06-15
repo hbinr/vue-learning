@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--引入 vue  -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>ref</title>
+</head>
+<body>
+    <!-- 
+        ref 访问子组件实例或子元素
+        尽管存在 prop 和事件，有的时候你仍可能需要在 JavaScript 里直接访问一个子组件。
+        为了达到这个目的，你可以通过 ref 这个 attribute 为子组件赋予一个 ID 引用。
+
+        ref 被用来给元素或子组件注册引用信息。引用信息将会注册在父组件的 $refs 对象上。
+            1.如果在普通的 DOM 元素上使用，引用指向的就是 DOM 元素；
+            2.如果用在子组件上，引用就指向组件实例
+
+        关于 ref 注册时间的重要说明：
+            因为 ref 本身是作为渲染结果被创建的，在初始渲染的时候你不能访问它们，因为它们还不存在！
+            $refs 也不是响应式的，因此你不应该试图用它在模板中做数据绑定。
+     -->
+
+    <div id="app">
+        <input type="text" ref="">
+    </div>    
+</body>
+</html>
+
+<script>
+ 
+</script>

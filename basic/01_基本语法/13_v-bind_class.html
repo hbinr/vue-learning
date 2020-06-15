@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 开发环境版本，包含了有帮助的命令行警告 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>动态绑定样式</title>
+</head>
+
+<body>
+    <!-- 
+        v-bind 也可绑定样式，支持动态修改样式。
+
+        注意：class的值为对象；class="object"
+     -->
+    <div id="app">
+        <div :class="compClasses">
+            <span>
+                动态绑定样式
+            </span>
+            <br>
+        </div>
+        <button @click="isChangeColor = !isChangeColor">
+            改变颜色
+        </button>
+        <button @click="isChangeLength = !isChangeLength">
+            改变长度
+        </button>
+    </div>
+
+
+</body>
+
+</html>
+
+<script>
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            isChangeColor:false,
+            isChangeLength:false
+        },
+        methods:{
+           
+        },
+        computed:{
+            compClasses(){
+                return {
+                    changeColor:this.isChangeColor,
+                    changeLength:this.isChangeLength
+                }
+            }
+        }
+    });
+
+</script>
+
+<style>
+span{
+    background: red;
+    display: inline-block;
+    padding: 10px;
+    color: #ffffff;
+    margin: 10px 0;
+}
+.changeColor span{
+    background: green;
+}
+
+.changeLength span:after{
+    content: "length";
+    margin-left: 20px;
+}
+</style>

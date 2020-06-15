@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <!-- 
+        修饰符是由点开头的指令后缀来表示的，Vue中的事件修饰符如下：
+        .stop             # 阻止事件继续传递，默认监听冒泡过程
+        .prevent          # 拦截默认事件
+        .capture          # capture是在捕获的过程监听,没有capture修饰符时都是默认冒泡过程监听
+        .self             # 只在目标Dom是绑定了动作的Dom才触发
+        .once             # 只会触发一次
+        .passive          # 不拦截默认事件
+
+        使用时注意几点：
+            1.修饰符可以串联
+            2.只有修饰符，不写方法也可以
+            3.使用修饰符时，顺序很重要；相应的代码会以同样的顺序产生。
+            因此，用 v-on:click.prevent.self 会阻止所有的点击，而 v-on:click.self.prevent 只会阻止对元素自身的点击。
+            4.某些标签拥有自身的默认事件，如a[href="#"]，button[type="submit"] 这种标签在冒泡结束后会开始执行默认事件。
+            注意默认事件虽然是冒泡后开始，但不会因为stop阻止事件传递而停止。
+     -->
+     <div id="app">
+       
+        <div id="canvas" @mousemove="updateXY">
+        ({{X}},{{Y}})---
+        <span @mousemove.stop>.stop修饰符  鼠标移动事件在以下 span 区域内失停止</span>
+        </div>
+
+        <br>
+        <span>.once修饰符实例，只能删除一次，之后点击按钮无效</span>
+        <button @click.once="deleteSuc">删除</button>
+
+        <br>
+        <span>.prevent修饰符实例，不跳转页面</span>
+        <a href="https://cn.vuejs.org/" @click.prevent>点击跳转</a>
+        <br>
+        <span>.stop 修饰符实例，依然跳转页面</span>
+        <a href="https://cn.vuejs.org/" @click.stop>点击跳转</a>
+     </div>
+
+
+</body>
+</html>
+<script>
+    var vm = new Vue({
+        el:"#app",
+        data:{
+            X:0,
+            Y:0
+        },
+        methods:{
+            updateXY:function(event){
+                this.X = event.offsetX;
+                this.Y = event.offsetY;
+            },
+            deleteSuc:function(){
+                alert("删除成功！")
+            }
+        }
+    });
+</script>
+
+<style>
+    #canvas{
+        width: 600px;
+        padding: 200px 20px;
+        text-align: center;
+        border: 1px solid;
+    }
+</style>

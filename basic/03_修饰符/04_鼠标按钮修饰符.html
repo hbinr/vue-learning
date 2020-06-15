@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <!-- 
+        可以用如下修饰符来实现仅在按下相应按键时才触发鼠标或键盘事件的监听器：
+        .left     # 鼠标左键
+        .right    # 鼠标右键
+        .middle   # 鼠标中键
+
+     -->
+    <div id="app">
+        <span @click.left="logInfo">在这段文字上，点击鼠标左键才会打印日志</span> 
+    </div>
+
+
+</body>
+</html>
+<script>
+    var vm = new Vue({
+        el:"#app",
+        data:{
+        },
+        methods:{
+            logInfo(){
+                console.log("你正在输入......") 
+            }
+        }
+    });
+</script>

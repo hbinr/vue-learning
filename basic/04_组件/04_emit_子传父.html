@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--引入 vue  -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>子传父</title>
+</head>
+<body>
+    <!-- div 是根组件的templet模板 -->
+
+    <div id="app">
+        <cbar @c_event='receive($event)'></cbar>
+        <br>
+        {{show}}
+        
+    </div>    
+</body>
+</html>
+
+<script>
+    Vue.component('cbar',{
+        data(){
+            // 组件的data属性一定要记住是data函数
+            return{message:"这是组件【cbar】的属性"}
+        },
+        template:`
+            <div>
+                【root的child组件：bbar组件】
+                <button @click='send()'>点这发送给父组件</button>
+            </div>
+        `,
+        methods:{
+           send(){
+                // emit分发事件
+                this.$emit('c_event',this.message)  // 第一个参数为事件名c_event，第二个参数为事件c_event的实参
+                
+           }
+        }
+    })  
+    
+    var vm = new Vue({
+        el:"#app",
+        data:{
+            show:[]
+        },
+        methods:{
+            receive(e){
+                // ${}表达式要参与计算需要使用反引号，与字符串拼接无关
+                this.show.push(`父组件收到消息！${e}`)
+            }
+        }
+    })
+</script>

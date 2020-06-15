@@ -23,7 +23,11 @@
 
 <script>
     var vm = new Vue({
-        el: '#app',  // el是elment的简写，#app是id选择器，绑定div
+        /*
+         * el是elment的简写，#app是id选择器，绑定div
+         * 注意：el绑定的一定是HTML中的根容器元素   
+         */
+        el: '#app',  
         data: {
             // 在data 里注册变量:
             message: "Hello world",

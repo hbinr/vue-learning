@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <!-- 
+        可以用如下修饰符来实现仅在按下相应按键时才触发鼠标或键盘事件的监听器：
+        .ctrl
+        .alt
+        .shift
+        .meta
+
+        注意：
+            1.在 Mac 系统键盘上，meta 对应 command 键 (⌘)。在 Windows 系统键盘 meta 对应 Windows 徽标键 (⊞)。
+            2.修饰键与常规按键不同，在和 keyup 事件一起用时，事件触发时修饰键必须处于按下状态。
+            换句话说，只有在按住 ctrl 的情况下释放其它按键，才能触发 keyup.ctrl。而单单释放 ctrl 也不会触发事件。
+     -->
+    <div id="app">
+        <span>键盘输入结束后，按alt + enter 才会打印日志</span> 
+        <input type="text" @keyup.alt.enter="logInfo">
+        <br>
+
+        <span>键盘输入结束后，按 win（Windows系统下） + enter 才会打印日志</span> 
+        <input type="text" @keyup.meta.enter="logInfo">
+        <br>
+    </div>
+
+
+</body>
+</html>
+<script>
+    var vm = new Vue({
+        el:"#app",
+        data:{
+        },
+        methods:{
+            logInfo(){
+                console.log("你正在输入......")           
+            }
+        }
+    });
+</script>
