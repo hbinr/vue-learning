@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 开发环境版本，包含了有帮助的命令行警告 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>v-once</title>
+</head>
+
+<body>
+    <!-- 
+        使用场景:需要对普通 DOM 元素进行操作，这时候就会用到自定义指令 
+        分类:全局注册和局部注册
+            
+        一. 局部注册
+        1. 在vm对象的选项中设置自定义指令 directives:{}
+        2. directives:{'指令的核心名称':{ inserted: (使用指令时的DOM对象) => { 具体的DOM操作 } }}
+        3. 在视图中通过标签去使用指令
+
+        三. 全局注册
+        1. 在创建 Vue 实例之前定义全局自定义指令Vue.directive()
+        2. Vue.directive('指令的名称',{ inserted: (使用指令的DOM对象) => { 具体的DOM操作 } } );
+        3. 在视图中通过"v-自定义指令名"去使用指令
+
+        注意：
+        1.Vue.directive(自定义指令名) 不需要加v-  使用自定义指令时需要加v-
+        2.[inserted]():当被绑定的元素插入到 DOM 中时,会被调用
+     -->
+    <div id="app">  
+        
+        <input type="text" v-focus value="使用v-focus指令">    
+        <!-- <input type="text" v-focus2>     -->
+    </div>
+</body>
+</html>
+
+<script>
+    // 全局指令
+    Vue.directive('focus',{
+        inserted(el){
+            el.focus();
+        }
+    })
+    var vm = new Vue({
+        el: '#app',
+        data:{
+            message:"test"
+        },
+        // 局部指令
+        directives:{
+            focus2:{
+                inserted(el){
+                    el.focus();
+                }
+            }
+        }
+    });
+</script>

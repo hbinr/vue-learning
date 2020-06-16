@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--引入 vue  -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <!-- 引入element样式 -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <!-- 引入element组件库 -->
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <!-- 引入axios -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+</head>
+
+<body>
+    <!-- 
+        功能分析
+            渲染表格
+            删除商品
+            添加商品
+        注意：
+            单独在tr td标签中使用v-for是不正确的，因为不在table里的td和tr不合语义，不予显示
+     -->
+    <div id="app">
+        <el-row type="flex" class="row-bg">
+            <el-container>
+                <el-header class="header">Header</el-header>
+                <el-main>
+                    <div>
+                        <el-col :span="22" :offset="2">
+                            <el-form :inline="true" class="demo-form-inline">
+                                <span>日期</span>
+                                <el-date-picker v-model="date" type="date" placeholder="选择日期">
+                                </el-date-picker>
+                                <el-form-item label="姓名">
+                                    <el-input v-model="name"></el-input>
+                                </el-form-item>
+                                <el-form-item label="年龄">
+                                    <el-input v-model="age"></el-input>
+                                </el-form-item>
+
+                                <el-form-item>
+                                    <el-button type="primary" @click="addUser">新增数据</el-button>
+                                    &nbsp; &nbsp; &nbsp;
+                                    <el-form-item label="姓名">
+                                        <el-input placeholder="支持模糊搜索" v-model="searchName"></el-input>
+                                    </el-form-item>
+                                    <el-button type="info" @click="searchUser(name)">查询</el-button>
+                                </el-form-item>
+                            </el-form>
+
+                        </el-col>
+                    </div>
+                    <hr>
+                    <!-- 展示列表 -->
+                    <div>
+                        <el-col :span="12" :offset="4">
+                            <template>
+                                <el-table :data="users" border style="width: 100%">
+                                    <el-table-column prop="id" label="编号" width="100">
+                                    </el-table-column>
+                                    <el-table-column prop="name" label="姓名" width="180">
+                                    </el-table-column>
+                                    <el-table-column prop="age" label="年龄" width="50">
+                                    </el-table-column>
+                                    <el-table-column prop="date" label="日期" width="200">
+                                    </el-table-column>
+                                    <!-- fixed="right" 会将操作固定在最右侧 如果字段较小，推荐去掉fixed属性 -->
+                                    <el-table-column label="操作" >
+                                        <template slot-scope="scope">
+                                            <el-button @click="dialogFormVisible = true" type="text" size="small">编辑
+                                            </el-button>
+                                            <el-button @click="deleteUser(scope.row.id)" type="text" size="small">删除
+                                            </el-button>
+                                        </template>
+                                    </el-table-column>
+                                </el-table>
+                            </template>
+                        </el-col>
+                    </div>
+
+                    <!-- 修改用户 -->
+                    <div>
+                        </el-col>
+                        <el-dialog width="30%" title="修改用户" :visible.sync="dialogFormVisible">
+                            <el-form>
+                                <el-form-item label="姓名" :label-width="formLabelWidth">
+                                    <el-input v-model="name" autocomplete="off"></el-input>
+                                </el-form-item>
+                                <el-form-item label="年龄" :label-width="formLabelWidth">
+                                    <el-input v-model="age" autocomplete="off"></el-input>
+                                </el-form-item>
+                            </el-form>
+                            <div slot="footer" style="text-align: center;" class="dialog-footer">
+                                <el-button @click="dialogFormVisible = false">取 消</el-button>
+                                <el-button type="primary" @click="updateUser(name,age)">修 改</el-button>
+                            </div>
+                        </el-dialog>
+                        </el-col>
+                    </div>
+
+
+                </el-main>
+                <el-footer class="footer">Footer</el-footer>
+            </el-container>
+        </el-row>
+    </div>
+
+
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                haveID: false,
+                searchName:"",
+                name: "",
+                age: "",
+                date: "",
+                users: [],
+                dialogFormVisible: false,
+                formLabelWidth: '120px'
+            },
+            mounted() {
+                this.getAllUser()
+            },
+            watch: {
+                // 监听searchName，只要数据发生变化，就进行异步操作，获取数据
+                searchName(newVal, oldVal) {
+                    axios
+                        .get('http://localhost:3000/users/?name_like=' + newVal)
+                        .then(res => {
+                            const { status, data } = res
+                            if (status === 200) {
+                                this.users = data
+                            }
+                        })
+                        .catch(err => {
+                            console.error(err);
+                        })
+                }
+            },
+            methods: {
+                getAllUser() {
+                    axios
+                        .get("http://localhost:3000/users")
+                        .then((res) => {
+                            // es6 新增语法，解构赋值，要保证key一致
+                            const { status, data } = res
+                            if (status === 200) {
+                                this.users = data
+                            }
+                        }).catch((err) => {
+                            console.log(err);
+                        })
+                },
+                addUser() {
+                    axios
+                        .post('http://localhost:3000/users', {
+                            name: this.name,
+                            age: this.age,
+                            date: new Date
+                        }).then((res) => {
+                            const { status, data } = res
+                            if (status === 201) {
+                                alert("新增数据成功")
+                                // 新增后要及时更新列表
+                                this.getAllUser()
+                            }
+
+                        }).catch((err) => {
+                            console.log(err);
+                        })
+
+                },
+                // 带params的写法，请求URL相当于：http://localhost:3000/users?id=this.id
+                updateUser(id,name, age) {
+                    axios
+                        .put("http://localhost:3000/users/?id="+id, {
+                            name: name,
+                            age: age,
+                            date: new Date()
+                        }).then(res => {
+                            const { status, data } = res
+                            if (status === 200) {
+                                this.getAllUser()
+                                this.dialogFormVisible = false
+                            }
+                        }).catch(err => {
+                            console.error(err);
+                            console.log("新增异常");
+                        })
+                },
+                deleteUser(id) {
+                    axios
+                        .delete("http://localhost:3000/users/" + id)
+                        .then(res => {
+                            const { status, data } = res
+                            if (status === 200) {
+                                this.getAllUser()
+                            }
+                        }).catch(err => {
+                            console.error(err);
+                        })
+                },
+                // 根据姓名搜索（支持模糊搜索）
+                searchUser(name) {
+                    // Json-server 模糊搜索: key_like=? 如name_like=?
+                    axios
+                        .get("http://localhost:3000/users/?name_like=" + name)
+                        .then(res => {
+                            const { status, data } = res
+                            if (status === 200) {
+                                this.users = data
+                            }
+                        })
+                        .catch(err => {
+                            console.error(err);
+                        })
+                }
+            },
+
+        });
+
+    </script>
+</body>
+
+</html>
+
+<style>
+    .header {
+        background-color: greenyellow
+    }
+
+    .footer {
+        background-color: hotpink
+    }
+</style>
