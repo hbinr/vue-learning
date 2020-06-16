@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--引入 vue  -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>跨组件</title>
+</head>
+<body>
+    <!-- 
+        组件component本质上也是一个vue实例，只不过是一种特殊的vue实例:
+            1.没有el属性，但是有template属性
+            2.data是一个带有返回值的函数，且该返回值是一个对象
+            3.template模板中，有且仅有一个根节点div
+
+        无论全局组件还是局部组件，组件是有自己的作用域的，组件的data属性和方法只能在自己的作用域中使用。
+     -->
+    <div id="app">
+        <div-btn></div-btn>
+    </div>    
+
+    <div id="app2">
+        <!-- 无法使用实例 vm1 中的组件-->
+        <div-btn></div-btn>
+
+    </div>  
+</body>
+</html>
+
+<script>
+
+    var vm1 = new Vue({
+        el:"#app",
+        data:{
+        },
+        components:{
+            'div-btn':{
+                template:`
+                <div>我是vm1的组件 
+                <button></button>
+                </div>    
+                `,
+            }
+        }
+        
+    });
+
+    var vm2 = new Vue({
+        el:"#app2",
+        data:{
+        },
+    });
+</script>

@@ -9,10 +9,14 @@
 </head>
 <body>
     <!-- 
-        组件注意事项：
-        1、必须一个根节点（root element），只要与内部标签不冲突。
-        2、组件间可通过props进行通讯
-        3、组件可以有多个属性，但是data属性的写法必须是方法+返回值
+        组件定义注意事项：
+        1.必须一个根节点（root element），只要与内部标签不冲突。
+        2.组件间可通过props进行通讯
+        3.组件可以有多个属性，但是data属性的写法必须是方法+返回值
+
+        组件嵌套注意事项：
+        1.new Vue所管理的视图相当于整个项目的根组件
+        2.组件是父组件还是子组件取决于组件的使用位置，与该组件是全局组件还是局部组件没有关系
      -->
     <div id="app">
         <abar></abar>
@@ -29,16 +33,17 @@
         template:
         `<div style='background:yellow'>
             【公共root组件的child组件：abar组件】
-            <abar_child></abar_child>
+            <abar-child></abar-child>
         </div>`,
         
         // 局部定义（注册）组件，组件单词为 components(复数形式)
         components:{
-            'abar_child':{ // 子组件名称也可以不加单引号，因为父组件中已经引用，就相当于定义名称了
-                template:`<div>【abar_child组件，只能在abar组件中使用】</div>`
+            'abar-child':{ // 子组件名称也可以不加单引号，因为父组件中已经引用，就相当于定义名称了
+                template:`<div>【abar-child组件，只能在abar组件中使用】</div>`
             }
         }
     });
+
 
     var vm = new Vue({
         el:"#app"
