@@ -14,11 +14,15 @@
             1.绑定data中的数据
             2.绑定path属性，赋值对象，记得加{}
             3.绑定name属性，赋值对象，记得加{}
-
+        知识补充：
+            1.每一个连接被点击后，会自动生成样式：class="router-link-exact-active router-link-active"
+            表示激活当前连接，页面显示的就是当前链接渲染的内容
+            2.router-link 默认是a标签，可以通过tag属性修改为其他标签
+            
     -->
     <div id="app">
-      <!-- to属性赋值  固定标识 -->
-      <router-link to="home">主页</router-link>
+      <!-- to属性赋值  固定标识。通过tag属性修改标签为span-->
+      <router-link to="home" tag="span">主页</router-link>
       <!-- :to属性赋值  绑定data中的数据 -->
       <router-link :to="userURL">用户管理</router-link>
       <!-- :to属性赋值对象{} {path:'标识'}  -->

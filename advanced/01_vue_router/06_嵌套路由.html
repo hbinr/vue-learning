@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>嵌套路由</title>
+  </head>
+  <body>
+    <!-- 
+        场景：点击一级链接后，显示二级链接且点击后可渲染内容
+        知识点：
+            1.父组件模板中，增加二级路由模板
+            2.children,配置子路由时的配置属性
+        注意：
+            1.对于二级路由，path很关键，根路由起始时一定要加 '/'
+    -->
+    <div id="app">
+      <router-link to="/home">主页</router-link>
+      <router-link to="/user">用户管理</router-link>
+      <router-link to="/sys">设置</router-link>
+
+      <router-view></router-view>
+    </div>
+  </body>
+  <script src="../assets/vue.js"></script>
+  <script src="../assets/vue-router.js"></script>
+
+  <script>
+    var comHome = {
+      template: `<div> 这是主页内容</div>`,
+    };
+    var comUser = {
+      template: `<div> 这是用户管理内容
+        
+        <router-link to="/user/info">个人信息</router-link>
+        <router-link to="/user/sys">个人设置</router-link>
+        <router-view></router-view>
+        </div>`,
+    };
+    var comSys = {
+      template: `<div> 这是设置内容</div>`,
+    };
+
+    var userSub = {
+      template: `
+        <div> 个人信息/设置</div>
+        `,
+    };
+    var routes = [
+      {
+        path: "/",
+        redirect: {
+          name: "home",
+        },
+      },
+      { path: "/home", name: "home", component: comHome },
+      {
+        path: "/user",
+        component: comUser,
+        children: [
+          {
+            path: "/user/:id",
+            component: userSub,
+          },
+        ],
+      },
+      {
+        path: "/sys",
+        component: comSys,
+      },
+      {
+        path: "*",
+        redirect: {
+          path: "/home",
+        },
+      },
+    ];
+
+    const router = new VueRouter({
+      routes,
+    });
+    new Vue({
+      el: "#app",
+      data: {},
+      router,
+    });
+  </script>
+</html>
