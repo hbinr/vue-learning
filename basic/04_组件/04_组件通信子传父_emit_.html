@@ -8,9 +8,21 @@
     <title>子传父</title>
 </head>
 <body>
-    <!-- div 是根组件的templet模板 -->
+  <!-- 
+        子传父应用：
+            child-a组件->root组件
+        目的：要在父组件中使用子组件传递过来的数据
+        知识点：
+            1.组件的选项methods中使用 $emit
+            2.$emit 是一个方法，有两个参数：第一个为子组件的的事件名，第二个为要传递的数据
+        使用总结：
+            第一步：定义。子组件定义事件
+            第二步：使用子组件事件。用该事件绑定父组件方法，类似click事件需要绑定一个方法
+            第三步：父组件方法定义及使用。父组件定义好自己要处理数据的方法
+     -->
 
     <div id="app">
+        <!-- 第二步：使用子组件事件。用该事件绑定父组件方法，类似click事件需要绑定一个方法 -->
         <cbar @c_event='receive($event)'></cbar>
         <br>
         {{show}}
@@ -25,16 +37,18 @@
             // 组件的data属性一定要记住是data函数
             return{message:"这是组件【cbar】的属性"}
         },
+
         template:`
             <div>
                 【root的child组件：bbar组件】
                 <button @click='send()'>点这发送给父组件</button>
             </div>
         `,
+        //  第一步：定义。子组件定义事件 c_event
         methods:{
            send(){
-                // emit分发事件
-                this.$emit('c_event',this.message)  // 第一个参数为事件名c_event，第二个参数为事件c_event的实参
+                // emit分发事件，第一个参数为事件名c_event，第二个参数为事件c_event的实参
+                this.$emit('c_event',this.message)  
                 
            }
         }
@@ -46,6 +60,7 @@
             show:[]
         },
         methods:{
+            // 第三步：父组件方法定义及使用。父组件定义好自己要处理数据的方法
             receive(e){
                 // ${}表达式要参与计算需要使用反引号，与字符串拼接无关
                 this.show.push(`父组件收到消息！${e}`)

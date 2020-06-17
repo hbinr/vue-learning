@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,34 +8,57 @@
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <title>父传子</title>
 </head>
+
 <body>
-    <!-- div 是根组件的templet模板 -->
+    <!-- 
+        父传子应用：
+            root组件->child-a组件
+        目的：要在子组件中使用父组件传递过来的数据
+        知识点：
+            组件的选项props
+            1.props 中的值是数据，可以理解为父组件中的变量
+            2.props 中数据的值来源于父组件
+            3.props 中数据的用法和vue实例中的data中数据的用法一致，如支持'this.'和插值表达式
+            4.props 中的值为组件的属性，可以直接使用。相当于标签中的属性
+        使用总结：
+            第一步：定义。子组件属性
+            第二步：传数据。子组件属性接收父组件传递过来的数据
+            第三步：使用。在子组件中去使用父组件传递的数据
+     -->
 
     <div id="app">
-        <bbar name="首页" :show="false"></bbar>
-        <bbar name="菜单" :show="true"></bbar>
-        <bbar name="项目" :show="true"></bbar>
-        ---------------------------
+        <child-a name="首页" :show="false"></child-a>
+        <child-a name="菜单" :show="true"></child-a>
+        <child-a name="项目" :show="true"></child-a>
         <br>
-        <!-- 不加 ':(即v-bind)'，显示效果不一样 -->
-        不加 ':(即v-bind)'结果：<bbar name='p_name'></bbar>
-        <br>
-        加 ':(即v-bind)'结果：<bbar :name='p_name'></bbar>
+        <!--  第二步：传数据。子组件属性接收父组件传递过来的数据，bind动态传递-->
+        <child-a :name='p_name'></child-a>
 
-        
-    </div>    
+        <!-- 当然也可以固定传递数据 -->
+        <child-a name='100000'></child-a>
+    </div>
 </body>
+
 </html>
 
 <script>
-    Vue.component('bbar',{
-        template:`
+    Vue.component('child-a', {
+        data() {
+            // data属性中的数据永远来源于自己，只能自己使用，有自己的作用域
+            // 如本案例:num只属于组件child-a
+            return {
+                num: 100
+            }
+        },
+        // 第三步：在子组件模板中使用已经定义的属性
+        template: `
                 <div>
-                    >>>
-                    <button v-if='show' @click='c'>首页</button>
-                    【root的child组件：bbar组件】【{{ name }}】
+                    
+                    <button v-if='show' @click='childAlert'>首页</button>
+                    【root的子组件：child-a组件】【{{ name }}】
                 </div>`,
-        // props:['name','show'],   // 可以是字符串数组形式列出的 prop
+
+        // props:['name','show'],   // 可以是字符串数组形式，且必须是字符串类型
         /*
         但更推荐以下写法，原因如下：
             1.希望每个 prop 都有指定的值类型
@@ -42,22 +66,22 @@
             3.在它们遇到错误的类型时从浏览器的 JavaScript 控制台提示用户。
             4.便于类型检查和其它 prop 验证。
         */
-        props:{// 接受父组件传进来的属性，
-            name:String,
-            show:Boolean
+        props: { // 第一步：定义子组件属性
+            name: String,
+            show: Boolean
         },
         methods: {
-            c(){
+            childAlert() {
                 alert('首页');
             }
         },
     })
-    
+
     var vm = new Vue({
-        el:"#app",
-        data:{
+        el: "#app",
+        data: {
             // 即父组件传参给子组件使用bind绑定
-            p_name:"root组件的p_name属性"
+            p_name: "root组件的p_name属性"
         }
     })
 </script>

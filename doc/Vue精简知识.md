@@ -2217,11 +2217,16 @@ watch: {
 
 ## 组件和模块
 
-- 模块：侧重于功能或者数据的封装
+- 模块：侧重于功能或者数据的封装。具有独立功能
 - 组件：包含了 template、style 和 script，而它的 script 可以由各种模块组成
 
-![img](C:/Users/liu99/Desktop/temp/vue7%E5%A4%A9/01-vue/%E7%AC%94%E8%AE%B0/media/b25efd3e8af188b5ab36ccb66baddd71_hd.jpg)
+在Vue中，.js文件可以看做是一个模块，其可以是组件的一部分。
 
+因为通常在写.vue组件时，会导入js文件，如require('./add.js'),该步骤可以理解为导入一个模块
+
+图示：
+
+![lifecycle](assets/组件和模块.png)
 
 
 ## [钩子函数](https://cn.vuejs.org/v2/api/#%E9%80%89%E9%A1%B9-%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E9%92%A9%E5%AD%90)
