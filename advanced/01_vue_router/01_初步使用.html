@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Vue-router初步使用</title>
+  </head>
+  <body>
+    <!-- 
+        vue-router使用步骤:
+        1.在视图中，导入vue和vue-router
+        2.在视图中，设置HTML中的内容    
+        3.在js中，创建组件  
+        4.在js中，配置路由规则
+        5.在js中，实例化路由并且使用路由配置
+        6.在js中，在vue实例中挂载路由
+    -->
+    <div id="app">
+      <!-- 第二步：设置html中的内容 -->
+
+      <!-- router-link 最终会被渲染成a标签，to指定路由的跳转地址，可以不写/，但是在path中必须写 -->
+      <router-link to="home">主页</router-link>
+      <router-link to="user">用户管理</router-link>
+      <router-link to="sys">设置</router-link>
+
+      <!-- 路由匹配到的组件将渲染在这里 -->
+      <router-view></router-view>
+    </div>
+  </body>
+  <!-- 第一步：vue和vue-router，注意顺序-->
+  <script src="../assets/vue.js"></script>
+  <script src="../assets/vue-router.js"></script>
+
+  <script>
+    // 第三步：创建组件
+    var comHome = {
+      template: `<div> 这是主页内容</div>`,
+    };
+    var comUser = {
+      template: `<div> 这是用户管理内容</div>`,
+    };
+    var comSys = {
+      template: `<div> 这是设置内容</div>`,
+    };
+
+    // 第四步：配置路由规则
+    var routes = [
+      { path: "/home", component: comHome },
+      { path: "/user", component: comUser },
+      { path: "/sys", component: comSys },
+    ];
+
+    // 第五步：实例化路由并且使用路由配置
+    const router = new VueRouter({
+      routes,
+    });
+    new Vue({
+      el: "#app",
+      data: {},
+      // 第六步：在vue实例中挂载路由
+      router,
+    });
+  </script>
+</html>

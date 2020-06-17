@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>to属性赋值</title>
+  </head>
+  <body>
+    <!-- 
+        router-link 中的to属性赋值总结
+        1.不绑定数据，直接写固定的path值
+        2.绑定数据
+            1.绑定data中的数据
+            2.绑定path属性，赋值对象，记得加{}
+            3.绑定name属性，赋值对象，记得加{}
+
+    -->
+    <div id="app">
+      <!-- to属性赋值  固定标识 -->
+      <router-link to="home">主页</router-link>
+      <!-- :to属性赋值  绑定data中的数据 -->
+      <router-link :to="userURL">用户管理</router-link>
+      <!-- :to属性赋值对象{} {path:'标识'}  -->
+      <router-link :to="{path:'program'}">项目管理</router-link>
+      <!-- :to属性赋值对象{} {name:'路由配置的名字'} -->
+      <router-link :to="{name:'sys'}">设置</router-link>
+
+      <router-view></router-view>
+    </div>
+  </body>
+  <script src="../assets/vue.js"></script>
+  <script src="../assets/vue-router.js"></script>
+
+  <script>
+    var comHome = {
+      template: `<div> 这是主页内容</div>`,
+    };
+    var comUser = {
+      template: `<div> 这是用户管理内容</div>`,
+    };
+    var comProgram = {
+      template: `<div> 这是项目管理内容</div>`,
+    };
+    var comSys = {
+      template: `<div> 这是设置内容</div>`,
+    };
+
+    var routes = [
+      { path: "/home", component: comHome },
+      { path: "/user", component: comUser },
+      { path: "/program", component: comProgram },
+      // 设置路由名字，规范推荐名字与path要保持一致
+      {
+        name: "sys",
+        path: "/sys",
+        component: comSys,
+      },
+    ];
+
+    const router = new VueRouter({
+      routes,
+    });
+    new Vue({
+      el: "#app",
+      data: {
+        userURL: "user",
+      },
+      router,
+    });
+  </script>
+</html>

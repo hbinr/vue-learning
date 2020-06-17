@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Vue-router初步使用</title>
+  </head>
+  <body>
+    <!-- 
+        动态路由
+        应用场景：不同的url渲染类似的内容。如点击知乎的文章链接，顶部和底部内容及格式不变，只有文章内容变
+        技术：动态路由解决了不同的url渲染同一个组件；常用在详情页
+        使用：在路由配置时，path属性增加 /pathUrl:id，id只是一个形参 
+
+    -->
+    <div id="app">
+      <router-link to="basketball">篮球</router-link>
+      <router-link to="football">足球</router-link>
+      <router-link to="pingpang">乒乓球</router-link>
+
+      <router-view></router-view>
+    </div>
+  </body>
+
+  <script src="../assets/vue.js"></script>
+  <script src="../assets/vue-router.js"></script>
+
+  <script>
+    // $route.params 是vue-router内置的属性，可以查看参数
+    // $route是路由配置对象
+    var comBall = {
+      template: `<div> 这是{{$route.params.ballId}}内容</div>`,
+    };
+
+    var routes = [{ path: "/:ballId", component: comBall }];
+
+    const router = new VueRouter({
+      routes,
+    });
+    new Vue({
+      el: "#app",
+      data: {},
+      router,
+    });
+  </script>
+</html>

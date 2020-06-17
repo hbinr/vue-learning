@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>重定向</title>
+  </head>
+  <body>
+    <!-- 
+        重定向：修改当前url，并重新发起请求
+        redirect 属性，设置路由时可以使用重定向
+        
+    -->
+    <div id="app">
+      <router-link to="home">主页</router-link>
+      <router-link to="user">用户管理</router-link>
+      <router-link to="sys">设置</router-link>
+
+      <router-view></router-view>
+    </div>
+  </body>
+  <script src="../assets/vue.js"></script>
+  <script src="../assets/vue-router.js"></script>
+
+  <script>
+    var comHome = {
+      template: `<div> 这是主页内容</div>`,
+    };
+    var comUser = {
+      template: `<div> 这是用户管理内容</div>`,
+    };
+    var comSys = {
+      template: `<div> 这是设置内容</div>`,
+    };
+
+    var routes = [
+      // 当访问根Url '/'时，跳转到首页
+      {
+        path: "/",
+        redirect: {
+          name: "home",
+        },
+      },
+      { path: "/home", name: "home", component: comHome },
+      { path: "/user", component: comUser },
+      { path: "/sys", component: comSys },
+      // 当访问任意URL时，跳转到首页
+      {
+        path: "*",
+        redirect: {
+          path: "/home",
+        },
+      },
+    ];
+
+    const router = new VueRouter({
+      routes,
+    });
+    new Vue({
+      el: "#app",
+      data: {},
+      router,
+    });
+  </script>
+</html>
