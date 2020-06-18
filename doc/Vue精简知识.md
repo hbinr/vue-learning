@@ -2763,10 +2763,10 @@ npm run dev
 
 - node_modules 项目依赖包
 - **src 项目核心文件(项目核心代码都放在这个文件夹下)!!!**
-  - assets 静态资源(样式类文件,如css、less、sass以及外部的js文件)
-  - App.vue 根组件,所有页面都是在App.vue下进行切换的
-    - 也可以理解为所有的路由也是App.vue的子组件
-  - main.js 入口文件:主要作用是初始化vue实例并使用需要的插件。 
+- assets 静态资源(样式类文件,如css、less、sass以及外部的js文件)
+- App.vue 根组件,所有页面都是在App.vue下进行切换的
+- 也可以理解为所有的路由也是App.vue的子组件
+- main.js 入口文件:主要作用是初始化vue实例并使用需要的插件。 
 - .babelrc  babel配置参数
 - .editorconfig 代码格式
 - .gitignore git忽略文件
@@ -2787,7 +2787,7 @@ npm run dev
 > 说明: 
 >
 > 1. *.vue 文件，是一个自定义的文件类型，用类似HTML的语法描述一个Vue组件。
-> 2. 每个.vue文件包含三种类型的顶级语言块 <template>, <script> 和 <style>。
+> 2. 每个.vue文件包含三种类型的顶级语言块 `<template>`, `<script>` 和 `<style>`。
 > 3. 这三个部分分别代表了 html,js,css。 
 
 #### **template 部分**
@@ -3134,7 +3134,6 @@ const appRouter = new VueRouter({
         </div>
     </div>
 </template>
-...
 ```
 
 1. 在侧边栏 `src/components/AppSidebar.vue` 组件中 增加两个导航链接用来导航 `foo` 和 `bar`
