@@ -19,7 +19,6 @@
 </template>
 
 <script>
-import axios from "axios";
 export default {
   data() {
     return {
@@ -38,7 +37,7 @@ export default {
       this.heros = this.$route.params
     },
     submitForm() {
-      axios.put("http://localhost:3000/heros/" + this.heros.id,this.heros)
+      this.axios.put("heros/" + this.heros.id,this.heros)
       .then(res => {
         const {status} = res
         if (status === 200) {

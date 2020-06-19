@@ -1,10 +1,10 @@
 <template>
   <div id="app">
-    <el-container style="border: 1px solid #6ffC6C">
+    <el-container>
       <!-- 头部 appnav -->
       <app-nav></app-nav>
 
-      <el-container style="height: 600px; border: 1px solid #F56C6C">
+      <el-container>
         <!-- 侧边栏 appslider -->
         <app-slider></app-slider>
 

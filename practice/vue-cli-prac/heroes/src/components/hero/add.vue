@@ -20,7 +20,6 @@
 </template>
 
 <script>
-import axios from "axios";
 export default {
   data() {
     return {
@@ -32,8 +31,8 @@ export default {
   },
   methods: {
     submitForm() {
-      axios
-        .post("http://localhost:3000/heros", this.heros)
+      this.axios
+        .post("heros", this.heros)
         .then(res => {
           const { status, data } = res;
           if (status === 201) {
