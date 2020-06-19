@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/animate.css@3.5.1"
+      rel="stylesheet"
+      type="text/css"
+    />
+
+    <title>过渡&动画</title>
+    <style>
+      *{
+          padding: 0;
+          margin: 0;
+      }
+      .test{
+          width: 200px;
+          height: 100px;
+          background-color: hotpink;
+          border: green;
+          text-align: center;
+          text-
+      }
+    </style>
+  </head>
+  <body>
+    <!-- 
+        场景：元素在插入，更新，移除时使用过渡&动画效果
+        知识点：
+            1.transition组件，给希望有过渡效果的元素外层包裹该元素
+            2.使用该组件自带的class，如enter-active-class(进入)，leave-active-class(离开)
+        注意：
+            1.如果自己要实现过渡效果，不使用第三方css，那么元素的选择器必须是class选择器，不用id选择器，
+            因为id选择的权重值比较大，可能会有些过渡&动画效果不显示
+    -->
+    <div id="app">
+      <transition
+        name="custom-classes-transition"
+        enter-active-class="animated bounceInRight"
+        leave-active-class="animated bounceOutRight"
+      >
+        <div class="test" v-if="isShow">
+          动画效果......
+        </div>
+      </transition>
+      <button @click="isShow = !isShow">点击查看效果</button>
+    </div>
+  </body>
+  <script src="../assets/vue.js"></script>
+
+  <script>
+    new Vue({
+      el: "#app",
+      data: {
+        isShow: true,
+      },
+    });
+  </script>
+</html>
